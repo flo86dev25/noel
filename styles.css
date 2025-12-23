@@ -1,8 +1,13 @@
 /* ============================= */
-/* styles.css (corrigé + mobile) */
+/* styles.css (version finale)   */
+/* - Image de fond à 50%         */
+/* - Fenêtre poème = dimension image */
+/* - Texte poème en BLANC        */
+/* - Titre romantique + dégradé  */
+/* - Mobile optimisé             */
 /* ============================= */
 
-/* Import des polices utilisées : lettre d’amour + romantique */
+/* Import des polices : lettre d’amour + romantique */
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600&family=Great+Vibes&display=swap"); /* Charge 2 polices */
 
 /* ============================= */
@@ -18,7 +23,8 @@
   --grad: linear-gradient(90deg, #ff2a2a 0%, #d11b8f 55%, #7b2cff 100%); /* Dégradé rouge → violet */
   --shadow: 0 18px 45px rgba(0, 0, 0, 0.25); /* Ombre “pro” */
 
-  --poem-side-gap: 16px; /* Marge latérale : fenêtre du poème un peu moins large que la photo */
+  --bg-size: 50%; /* IMPORTANT : taille de l’image de fond (et donc largeur du bloc poème) */
+
   --poem-padding: 18px; /* Espace intérieur de la fenêtre du poème */
   --poem-radius: 22px; /* Arrondi de la fenêtre du poème */
   --poem-gap: 14px; /* Espace entre fenêtre poème et bouton retour */
@@ -64,7 +70,7 @@ body { /* Style global */
   position: relative; /* Pour placer titre/boutons/fenêtre */
   background-position: center; /* Centre l’image */
   background-repeat: no-repeat; /* Pas de répétition */
-  background-size: 50%; /* Ta valeur : image réduite (plus petite) */
+  background-size: var(--bg-size); /* Taille de l’image (50% par défaut) */
   background-color: #050505; /* Fond derrière l’image si elle ne remplit pas */
 }
 
@@ -81,11 +87,11 @@ body { /* Style global */
 /* Images de fond                */
 /* ============================= */
 .card--home { /* Page 1 */
-  background-image: url("photo1.jpg"); /* Image 1 */
+  background-image: url("photo1.jpg"); /* Image 1 (à la racine du repo) */
 }
 
 .card--poem { /* Page 2 */
-  background-image: url("photo2.jpg"); /* Image 2 */
+  background-image: url("photo2.jpg"); /* Image 2 (à la racine du repo) */
 }
 
 /* ============================= */
@@ -155,51 +161,55 @@ body { /* Style global */
 }
 
 /* ============================= */
-/* Page 2 : centrage fenêtre poème */
+/* Page 2 : poème = largeur image */
 /* ============================= */
 .poem-stack { /* Conteneur poème + bouton retour */
   position: absolute; /* Superposé à la carte */
-  inset: 0; /* Prend toute la surface */
-  display: grid; /* Grille */
-  place-items: center; /* Centre */
-  padding: 14px; /* Marge */
-  transform: translateY(20px); /* Descend légèrement le bloc */
+  left: 50%; /* Centre horizontal */
+  top: 50%; /* Centre vertical */
+  transform: translate(-50%, -50%) translateY(20px); /* Centre + descend de 20px */
+  width: var(--bg-size); /* IMPORTANT : même largeur que l’image (50%) */
+  max-width: 980px; /* Limite sur très grands écrans */
+  display: flex; /* Flex */
+  flex-direction: column; /* Empile verticalement */
+  align-items: center; /* Centre le bouton */
 }
 
 /* Fenêtre poème */
 .poem { /* Article du poème */
-  width: calc(100% - (var(--poem-side-gap) * 2)); /* ✅ Largeur correcte */
-  max-width: 980px; /* Limite sur grand écran */
+  width: calc(100% - 40px); /* IMPORTANT : 20px gauche + 20px droite */
   max-height: 70vh; /* Évite de dépasser */
   overflow: auto; /* Scroll si nécessaire */
-  -webkit-overflow-scrolling: touch; /* ✅ Scroll fluide iPhone */
+  -webkit-overflow-scrolling: touch; /* Scroll fluide iPhone */
   padding: var(--poem-padding); /* Confort */
   border-radius: var(--poem-radius); /* Arrondi */
-  background: transparent; /* Transparent */
-  border: 1px solid rgba(0, 0, 0, 0.20); /* Bord léger */
+  background: transparent; /* Transparent : on voit le fond */
+  border: 1px solid rgba(255, 255, 255, 0.25); /* Bord léger (blanc, visible sur fond sombre) */
 }
 
-/* Titre (lettre d’amour + dégradé) */
+/* Titre romantique + dégradé */
 .poem__title { /* h1 */
   margin: 0 0 12px 0; /* Espace dessous */
-  font-family: "Great Vibes", cursive; /* ✅ Très romantique */
-  font-size: 42px; /* Taille */
+  font-family: "Great Vibes", cursive; /* Très romantique */
+  font-size: 50px; /* Taille */
   font-weight: 400; /* Poids */
   letter-spacing: 0.5px; /* Raffinement */
   background: var(--grad); /* Dégradé */
   -webkit-background-clip: text; /* Clip */
   background-clip: text; /* Clip */
   color: transparent; /* Dégradé visible */
+  font-family: "Dancing Script", cursive; /* Lettre d’amour lisible */
 }
 
-/* Texte du poème */
+/* Texte du poème (BLANC) */
 .poem__text { /* pre */
   margin: 0; /* Pas de marge */
   white-space: pre-wrap; /* Retours à la ligne */
   line-height: 2.1; /* Lisibilité */
-  font-size: 22px; /* Taille */
-  color: #000; /* ✅ Noir (vrai noir) */
-  font-family: "Dancing Script", cursive; /* ✅ Lettre d’amour lisible */
+  font-size: 30px; /* Taille */
+  color: #fff; /* IMPORTANT : BLANC */
+  font-family: "Dancing Script", cursive; /* Lettre d’amour lisible */
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55); /* Rend lisible sur zones claires de la photo */
 }
 
 /* Bouton retour */
@@ -232,10 +242,10 @@ body { /* Style global */
 /* ============================= */
 /* Responsive mobile             */
 /* ============================= */
-@media (max-width: 520px) { /* Petits écrans */
-  :root { /* Ajustements */
+@media (max-width: 600px) { /* Smartphones */
+  :root { /* Variables */
     --card-radius: 22px; /* Arrondi plus petit */
-    --poem-side-gap: 10px; /* Fenêtre plus large sur mobile */
+    --bg-size: 90%; /* IMPORTANT : sur mobile, image + poème prennent plus de place */
   }
 
   .arc-title__text { /* Joyeux Noël */
@@ -244,10 +254,15 @@ body { /* Style global */
   }
 
   .poem__title { /* Titre */
-    font-size: 36px; /* Plus petit sur mobile */
+    font-size: 36px; /* Plus petit */
   }
 
   .poem { /* Fenêtre */
-    max-height: 62vh; /* Moins haut sur mobile */
+    max-height: 62vh; /* Moins haut */
+  }
+
+  .poem__text { /* Texte */
+    font-size: 18px; /* Plus adapté mobile */
+    line-height: 1.9; /* Plus serré pour l’écran */
   }
 }
