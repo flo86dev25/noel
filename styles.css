@@ -81,11 +81,11 @@ body { /* Style global */
 /* Images de fond                */
 /* ============================= */
 .card--home { /* Page 1 */
-  background-image: url("images/photo1.jpg"); /* Image 1 */
+  background-image: url("photo1.jpg"); /* Image 1 */
 }
 
 .card--poem { /* Page 2 */
-  background-image: url("images/photo2.jpg"); /* Image 2 */
+  background-image: url("photo2.jpg"); /* Image 2 */
 }
 
 /* ============================= */
