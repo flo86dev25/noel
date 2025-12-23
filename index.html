@@ -1,0 +1,53 @@
+<!doctype html> <!-- Déclare un document HTML5 -->
+<html lang="fr"> <!-- Définit la langue du document : français -->
+<head> <!-- Début des infos “techniques” (non visibles) -->
+  <meta charset="utf-8" /> <!-- Encodage UTF-8 : accents et caractères spéciaux OK -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- Mise à l’échelle pour smartphone (responsive) -->
+  <title>Joyeux Noël</title> <!-- Titre affiché dans l’onglet du navigateur -->
+  <link rel="stylesheet" href="styles.css" /> <!-- Relie le fichier CSS au HTML -->
+</head> <!-- Fin du head -->
+
+<body> <!-- Début du contenu visible -->
+
+  <main class="page"> <!-- Conteneur principal (sert au layout plein écran) -->
+
+    <section class="card card--home" aria-label="Carte de Noël"> <!-- Carte avec l’image de fond (photo1) -->
+
+      <div class="arc-title" aria-hidden="true"> <!-- Conteneur du titre : décoratif (caché aux lecteurs d’écran) -->
+        <svg viewBox="0 0 1000 320" class="arc-title__svg" aria-hidden="true"> <!-- SVG décoratif (on enlève role/aria-label car déjà aria-hidden) -->
+          <defs> <!-- Définition des éléments réutilisables (dégradé + filtre) -->
+
+            <linearGradient id="gradRedPurple" x1="0%" y1="0%" x2="100%" y2="0%"> <!-- Dégradé rouge -> violet -->
+              <stop offset="0%" stop-color="#ff2a2a" /> <!-- Couleur rouge au début -->
+              <stop offset="55%" stop-color="#d11b8f" /> <!-- Couleur rose/violet au milieu -->
+              <stop offset="100%" stop-color="#7b2cff" /> <!-- Couleur violet à la fin -->
+            </linearGradient> <!-- Fin du dégradé -->
+
+            <filter id="text3d" x="-20%" y="-20%" width="140%" height="140%"> <!-- Filtre pour donner un effet 3D -->
+              <feDropShadow dx="0" dy="10" stdDeviation="6" flood-color="rgba(0,0,0,.35)" /> <!-- Ombre principale (profondeur) -->
+              <feDropShadow dx="0" dy="2" stdDeviation="1" flood-color="rgba(255,255,255,.25)" /> <!-- Légère lumière (relief) -->
+            </filter> <!-- Fin du filtre -->
+          </defs> <!-- Fin defs -->
+
+          <path id="arcPath" d="M 120 250 Q 500 60 880 250" fill="none" /> <!-- Courbe de l’arc (le texte suit ce chemin) -->
+
+          <text class="arc-title__text" filter="url(#text3d)"> <!-- Texte du SVG avec le filtre 3D -->
+            <textPath href="#arcPath" startOffset="50%" text-anchor="middle"> <!-- Colle le texte sur la courbe et le centre -->
+              Joyeux Noël <!-- Contenu du titre -->
+            </textPath> <!-- Fin textPath -->
+          </text> <!-- Fin text -->
+        </svg> <!-- Fin SVG -->
+      </div> <!-- Fin conteneur titre -->
+
+      <div class="card__bottom"> <!-- Zone basse pour placer le bouton -->
+        <a class="cta-button" href="poem.html" aria-label="Ouvrir le cadeau et lire le poème"> <!-- Bouton vers page 2 + label accessibilité -->
+          ouverture du cadeau <!-- Texte visible du bouton -->
+        </a> <!-- Fin bouton -->
+      </div> <!-- Fin zone basse -->
+
+    </section> <!-- Fin de la carte -->
+
+  </main> <!-- Fin du main -->
+
+</body> <!-- Fin du body -->
+</html> <!-- Fin du document -->

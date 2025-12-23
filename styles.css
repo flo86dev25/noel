@@ -1,0 +1,506 @@
+/* ============================= */
+/* styles.css (corrigé + mobile) */
+/* ============================= */
+
+/* Import des polices utilisées : lettre d’amour + romantique */
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600&family=Great+Vibes&display=swap"); /* Charge 2 polices */
+
+/* ============================= */
+/* Variables globales            */
+/* ============================= */
+:root { /* Variables disponibles partout */
+  --card-radius: 28px; /* Arrondi des coins de la carte */
+  --frame-gap: 12px; /* Cadre autour sur PC pour voir l’arrondi */
+
+  --title-top: 2%; /* Position du “Joyeux Noël” */
+  --button-bottom: 3%; /* Position du bouton (page 1) */
+
+  --grad: linear-gradient(90deg, #ff2a2a 0%, #d11b8f 55%, #7b2cff 100%); /* Dégradé rouge → violet */
+  --shadow: 0 18px 45px rgba(0, 0, 0, 0.25); /* Ombre “pro” */
+
+  --poem-side-gap: 16px; /* Marge latérale : fenêtre du poème un peu moins large que la photo */
+  --poem-padding: 18px; /* Espace intérieur de la fenêtre du poème */
+  --poem-radius: 22px; /* Arrondi de la fenêtre du poème */
+  --poem-gap: 14px; /* Espace entre fenêtre poème et bouton retour */
+}
+
+/* ============================= */
+/* Reset léger                   */
+/* ============================= */
+* { /* Tous les éléments */
+  box-sizing: border-box; /* Inclut padding + bordure dans les tailles */
+}
+
+html, body { /* Document + body */
+  height: 100%; /* Permet le plein écran */
+}
+
+body { /* Style global */
+  margin: 0; /* Supprime marges par défaut */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; /* Police système (rapide, compatible) */
+  background: radial-gradient(circle at top, #141414, #070707); /* Fond sombre */
+  color: #fff; /* Texte blanc par défaut */
+}
+
+/* ============================= */
+/* Conteneur principal           */
+/* ============================= */
+.page { /* <main class="page"> */
+  min-height: 100dvh; /* Plein écran (mieux que 100vh sur mobile) */
+  display: grid; /* Grille */
+  place-items: stretch; /* La carte s’étire */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); /* Safe area iPhone */
+}
+
+/* ============================= */
+/* Carte (même dimension page 1 & 2) */
+/* ============================= */
+.card { /* Carte de fond image */
+  width: 100vw; /* Pleine largeur */
+  height: 100dvh; /* Pleine hauteur */
+  border-radius: var(--card-radius); /* Coins arrondis */
+  overflow: hidden; /* Coupe aux coins */
+  box-shadow: var(--shadow); /* Ombre */
+  position: relative; /* Pour placer titre/boutons/fenêtre */
+  background-position: center; /* Centre l’image */
+  background-repeat: no-repeat; /* Pas de répétition */
+  background-size: 50%; /* Ta valeur : image réduite (plus petite) */
+  background-color: #050505; /* Fond derrière l’image si elle ne remplit pas */
+}
+
+/* Cadre sur écran PC pour voir l’arrondi (optionnel) */
+@media (min-width: 480px) { /* À partir de 480px */
+  .card { /* Carte */
+    width: calc(100vw - (var(--frame-gap) * 2)); /* Largeur moins marges */
+    height: calc(100dvh - (var(--frame-gap) * 2)); /* Hauteur moins marges */
+    margin: var(--frame-gap); /* Applique le cadre */
+  }
+}
+
+/* ============================= */
+/* Images de fond                */
+/* ============================= */
+.card--home { /* Page 1 */
+  background-image: url("photo1.jpg"); /* Image 1 */
+}
+
+.card--poem { /* Page 2 */
+  background-image: url("photo2.jpg"); /* Image 2 */
+}
+
+/* ============================= */
+/* Titre en arc (page 1)         */
+/* ============================= */
+.arc-title { /* Conteneur SVG */
+  position: absolute; /* Superposé */
+  left: 0; /* À gauche */
+  right: 0; /* À droite */
+  top: var(--title-top); /* Position réglable */
+  display: grid; /* Grille */
+  place-items: center; /* Centre */
+  padding: 0 14px; /* Marge latérale */
+  pointer-events: none; /* Ne bloque pas les clics */
+}
+
+.arc-title__svg { /* SVG */
+  width: min(92%, 980px); /* Large */
+  height: auto; /* Proportions */
+}
+
+.arc-title__text { /* Texte du SVG */
+  font-family: "Trebuchet MS", system-ui, sans-serif; /* Police */
+  font-weight: 900; /* Gras */
+  font-size: 104px; /* Taille */
+  letter-spacing: 2px; /* Long */
+  fill: url(#gradRedPurple); /* Dégradé dans le SVG */
+  paint-order: stroke fill; /* Contour propre */
+  stroke: rgba(0, 0, 0, 0.35); /* Contour */
+  stroke-width: 6px; /* Épaisseur */
+}
+
+/* ============================= */
+/* Bouton page 1                 */
+/* ============================= */
+.card__bottom { /* Zone bas */
+  position: absolute; /* Superposé */
+  left: 50%; /* Centre */
+  bottom: var(--button-bottom); /* Réglable */
+  transform: translateX(-50%); /* Centre réel */
+  padding: 0 14px; /* Marge */
+}
+
+.cta-button { /* Bouton principal */
+  display: inline-flex; /* Flex */
+  align-items: center; /* Centre vertical */
+  justify-content: center; /* Centre horizontal */
+  padding: 14px 22px; /* Taille */
+  border-radius: 999px; /* Rond */
+  background: var(--grad); /* Dégradé */
+  color: #fff; /* Blanc */
+  text-decoration: none; /* Pas de soulignement */
+  font-weight: 800; /* Gras */
+  border: 1px solid rgba(255, 255, 255, 0.18); /* Bord */
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28); /* Ombre */
+  backdrop-filter: blur(6px); /* Effet premium */
+  transition: transform 0.15s ease, filter 0.15s ease; /* Animation */
+}
+
+.cta-button:hover { /* Survol */
+  transform: translateY(-2px); /* Monte */
+  filter: brightness(1.05); /* Plus lumineux */
+}
+
+.cta-button:active { /* Clic */
+  transform: translateY(0) scale(0.99); /* Pression */
+}
+
+/* ============================= */
+/* Page 2 : centrage fenêtre poème */
+/* ============================= */
+.poem-stack { /* Conteneur poème + bouton retour */
+  position: absolute; /* Superposé à la carte */
+  inset: 0; /* Prend toute la surface */
+  display: grid; /* Grille */
+  place-items: center; /* Centre */
+  padding: 14px; /* Marge */
+  transform: translateY(20px); /* Descend légèrement le bloc */
+}
+
+/* Fenêtre poème */
+.poem { /* Article du poème */
+  width: calc(100% - (var(--poem-side-gap) * 2)); /* ✅ Largeur correcte */
+  max-width: 980px; /* Limite sur grand écran */
+  max-height: 70vh; /* Évite de dépasser */
+  overflow: auto; /* Scroll si nécessaire */
+  -webkit-overflow-scrolling: touch; /* ✅ Scroll fluide iPhone */
+  padding: var(--poem-padding); /* Confort */
+  border-radius: var(--poem-radius); /* Arrondi */
+  background: transparent; /* Transparent */
+  border: 1px solid rgba(0, 0, 0, 0.20); /* Bord léger */
+}
+
+/* Titre (lettre d’amour + dégradé) */
+.poem__title { /* h1 */
+  margin: 0 0 12px 0; /* Espace dessous */
+  font-family: "Great Vibes", cursive; /* ✅ Très romantique */
+  font-size: 42px; /* Taille */
+  font-weight: 400; /* Poids */
+  letter-spacing: 0.5px; /* Raffinement */
+  background: var(--grad); /* Dégradé */
+  -webkit-background-clip: text; /* Clip */
+  background-clip: text; /* Clip */
+  color: transparent; /* Dégradé visible */
+}
+
+/* Texte du poème */
+.poem__text { /* pre */
+  margin: 0; /* Pas de marge */
+  white-space: pre-wrap; /* Retours à la ligne */
+  line-height: 2.1; /* Lisibilité */
+  font-size: 22px; /* Taille */
+  color: #000; /* ✅ Noir (vrai noir) */
+  font-family: "Dancing Script", cursive; /* ✅ Lettre d’amour lisible */
+}
+
+/* Bouton retour */
+.back-link { /* Lien retour */
+  margin-top: var(--poem-gap); /* Sous la fenêtre */
+  display: inline-flex; /* Flex */
+  align-items: center; /* Centre vertical */
+  justify-content: center; /* Centre horizontal */
+  padding: 8px 14px; /* Petit */
+  border-radius: 999px; /* Rond */
+  background: var(--grad); /* Dégradé */
+  color: #fff; /* Blanc */
+  text-decoration: none; /* Pas de soulignement */
+  font-weight: 600; /* Semi-gras */
+  border: 1px solid rgba(255, 255, 255, 0.18); /* Bord */
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28); /* Ombre */
+  backdrop-filter: blur(6px); /* Effet */
+  transition: transform 0.15s ease, filter 0.15s ease; /* Animation */
+}
+
+.back-link:hover { /* Survol */
+  transform: translateY(-2px); /* Monte */
+  filter: brightness(1.05); /* Plus lumineux */
+}
+
+.back-link:active { /* Clic */
+  transform: translateY(0) scale(0.99); /* Pression */
+}
+
+/* ============================= */
+/* Responsive mobile             */
+/* ============================= */
+@media (max-width: 520px) { /* Petits écrans */
+  :root { /* Ajustements */
+    --card-radius: 22px; /* Arrondi plus petit */
+    --poem-side-gap: 10px; /* Fenêtre plus large sur mobile */
+  }
+
+  .arc-title__text { /* Joyeux Noël */
+    font-size: 92px; /* Un peu réduit */
+    stroke-width: 5px; /* Contour plus fin */
+  }
+
+  .poem__title { /* Titre */
+    font-size: 36px; /* Plus petit sur mobile */
+  }
+
+  .poem { /* Fenêtre */
+    max-height: 62vh; /* Moins haut sur mobile */
+  }
+}
+/* ============================= */
+/* styles.css (corrigé + mobile) */
+/* ============================= */
+
+/* Import des polices utilisées : lettre d’amour + romantique */
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600&family=Great+Vibes&display=swap"); /* Charge 2 polices */
+
+/* ============================= */
+/* Variables globales            */
+/* ============================= */
+:root { /* Variables disponibles partout */
+  --card-radius: 28px; /* Arrondi des coins de la carte */
+  --frame-gap: 12px; /* Cadre autour sur PC pour voir l’arrondi */
+
+  --title-top: 2%; /* Position du “Joyeux Noël” */
+  --button-bottom: 3%; /* Position du bouton (page 1) */
+
+  --grad: linear-gradient(90deg, #ff2a2a 0%, #d11b8f 55%, #7b2cff 100%); /* Dégradé rouge → violet */
+  --shadow: 0 18px 45px rgba(0, 0, 0, 0.25); /* Ombre “pro” */
+
+  --poem-side-gap: 16px; /* Marge latérale : fenêtre du poème un peu moins large que la photo */
+  --poem-padding: 18px; /* Espace intérieur de la fenêtre du poème */
+  --poem-radius: 22px; /* Arrondi de la fenêtre du poème */
+  --poem-gap: 14px; /* Espace entre fenêtre poème et bouton retour */
+}
+
+/* ============================= */
+/* Reset léger                   */
+/* ============================= */
+* { /* Tous les éléments */
+  box-sizing: border-box; /* Inclut padding + bordure dans les tailles */
+}
+
+html, body { /* Document + body */
+  height: 100%; /* Permet le plein écran */
+}
+
+body { /* Style global */
+  margin: 0; /* Supprime marges par défaut */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; /* Police système (rapide, compatible) */
+  background: radial-gradient(circle at top, #141414, #070707); /* Fond sombre */
+  color: #fff; /* Texte blanc par défaut */
+}
+
+/* ============================= */
+/* Conteneur principal           */
+/* ============================= */
+.page { /* <main class="page"> */
+  min-height: 100dvh; /* Plein écran (mieux que 100vh sur mobile) */
+  display: grid; /* Grille */
+  place-items: stretch; /* La carte s’étire */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); /* Safe area iPhone */
+}
+
+/* ============================= */
+/* Carte (même dimension page 1 & 2) */
+/* ============================= */
+.card { /* Carte de fond image */
+  width: 100vw; /* Pleine largeur */
+  height: 100dvh; /* Pleine hauteur */
+  border-radius: var(--card-radius); /* Coins arrondis */
+  overflow: hidden; /* Coupe aux coins */
+  box-shadow: var(--shadow); /* Ombre */
+  position: relative; /* Pour placer titre/boutons/fenêtre */
+  background-position: center; /* Centre l’image */
+  background-repeat: no-repeat; /* Pas de répétition */
+  background-size: 50%; /* Ta valeur : image réduite (plus petite) */
+  background-color: #050505; /* Fond derrière l’image si elle ne remplit pas */
+}
+
+/* Cadre sur écran PC pour voir l’arrondi (optionnel) */
+@media (min-width: 480px) { /* À partir de 480px */
+  .card { /* Carte */
+    width: calc(100vw - (var(--frame-gap) * 2)); /* Largeur moins marges */
+    height: calc(100dvh - (var(--frame-gap) * 2)); /* Hauteur moins marges */
+    margin: var(--frame-gap); /* Applique le cadre */
+  }
+}
+
+/* ============================= */
+/* Images de fond                */
+/* ============================= */
+.card--home { /* Page 1 */
+  background-image: url("images/photo1.jpg"); /* Image 1 */
+}
+
+.card--poem { /* Page 2 */
+  background-image: url("images/photo2.jpg"); /* Image 2 */
+}
+
+/* ============================= */
+/* Titre en arc (page 1)         */
+/* ============================= */
+.arc-title { /* Conteneur SVG */
+  position: absolute; /* Superposé */
+  left: 0; /* À gauche */
+  right: 0; /* À droite */
+  top: var(--title-top); /* Position réglable */
+  display: grid; /* Grille */
+  place-items: center; /* Centre */
+  padding: 0 14px; /* Marge latérale */
+  pointer-events: none; /* Ne bloque pas les clics */
+}
+
+.arc-title__svg { /* SVG */
+  width: min(92%, 980px); /* Large */
+  height: auto; /* Proportions */
+}
+
+.arc-title__text { /* Texte du SVG */
+  font-family: "Trebuchet MS", system-ui, sans-serif; /* Police */
+  font-weight: 900; /* Gras */
+  font-size: 104px; /* Taille */
+  letter-spacing: 2px; /* Long */
+  fill: url(#gradRedPurple); /* Dégradé dans le SVG */
+  paint-order: stroke fill; /* Contour propre */
+  stroke: rgba(0, 0, 0, 0.35); /* Contour */
+  stroke-width: 6px; /* Épaisseur */
+}
+
+/* ============================= */
+/* Bouton page 1                 */
+/* ============================= */
+.card__bottom { /* Zone bas */
+  position: absolute; /* Superposé */
+  left: 50%; /* Centre */
+  bottom: var(--button-bottom); /* Réglable */
+  transform: translateX(-50%); /* Centre réel */
+  padding: 0 14px; /* Marge */
+}
+
+.cta-button { /* Bouton principal */
+  display: inline-flex; /* Flex */
+  align-items: center; /* Centre vertical */
+  justify-content: center; /* Centre horizontal */
+  padding: 14px 22px; /* Taille */
+  border-radius: 999px; /* Rond */
+  background: var(--grad); /* Dégradé */
+  color: #fff; /* Blanc */
+  text-decoration: none; /* Pas de soulignement */
+  font-weight: 800; /* Gras */
+  border: 1px solid rgba(255, 255, 255, 0.18); /* Bord */
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28); /* Ombre */
+  backdrop-filter: blur(6px); /* Effet premium */
+  transition: transform 0.15s ease, filter 0.15s ease; /* Animation */
+}
+
+.cta-button:hover { /* Survol */
+  transform: translateY(-2px); /* Monte */
+  filter: brightness(1.05); /* Plus lumineux */
+}
+
+.cta-button:active { /* Clic */
+  transform: translateY(0) scale(0.99); /* Pression */
+}
+
+/* ============================= */
+/* Page 2 : centrage fenêtre poème */
+/* ============================= */
+.poem-stack { /* Conteneur poème + bouton retour */
+  position: absolute; /* Superposé à la carte */
+  inset: 0; /* Prend toute la surface */
+  display: grid; /* Grille */
+  place-items: center; /* Centre */
+  padding: 14px; /* Marge */
+  transform: translateY(20px); /* Descend légèrement le bloc */
+}
+
+/* Fenêtre poème */
+.poem { /* Article du poème */
+  width: calc(100% - (var(--poem-side-gap) 20px)); /* ✅ Largeur correcte */
+  max-width: 980px; /* Limite sur grand écran */
+  max-height: 70vh; /* Évite de dépasser */
+  overflow: auto; /* Scroll si nécessaire */
+  -webkit-overflow-scrolling: touch; /* ✅ Scroll fluide iPhone */
+  padding: var(--poem-padding); /* Confort */
+  border-radius: var(--poem-radius); /* Arrondi */
+  background: transparent; /* Transparent */
+  border: 1px solid rgba(0, 0, 0, 0.20); /* Bord léger */
+}
+
+/* Titre (lettre d’amour + dégradé) */
+.poem__title { /* h1 */
+  margin: 0 0 12px 0; /* Espace dessous */
+  font-family: "Great Vibes", cursive; /* ✅ Très romantique */
+  font-size: 42px; /* Taille */
+  font-weight: 400; /* Poids */
+  letter-spacing: 0.5px; /* Raffinement */
+  background: var(--grad); /* Dégradé */
+  -webkit-background-clip: text; /* Clip */
+  background-clip: text; /* Clip */
+  color: transparent; /* Dégradé visible */
+}
+
+/* Texte du poème */
+.poem__text { /* pre */
+  margin: 0; /* Pas de marge */
+  white-space: pre-wrap; /* Retours à la ligne */
+  line-height: 2.1; /* Lisibilité */
+  font-size: 22px; /* Taille */
+  color: white; /* ✅ blanc (vrai blanc) */
+  font-family: "Dancing Script", cursive; /* ✅ Lettre d’amour lisible */
+}
+
+/* Bouton retour */
+.back-link { /* Lien retour */
+  margin-top: var(--poem-gap); /* Sous la fenêtre */
+  display: inline-flex; /* Flex */
+  align-items: center; /* Centre vertical */
+  justify-content: center; /* Centre horizontal */
+  padding: 8px 14px; /* Petit */
+  border-radius: 999px; /* Rond */
+  background: var(--grad); /* Dégradé */
+  color: #fff; /* Blanc */
+  text-decoration: none; /* Pas de soulignement */
+  font-weight: 600; /* Semi-gras */
+  border: 1px solid rgba(255, 255, 255, 0.18); /* Bord */
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28); /* Ombre */
+  backdrop-filter: blur(6px); /* Effet */
+  transition: transform 0.15s ease, filter 0.15s ease; /* Animation */
+}
+
+.back-link:hover { /* Survol */
+  transform: translateY(-2px); /* Monte */
+  filter: brightness(1.05); /* Plus lumineux */
+}
+
+.back-link:active { /* Clic */
+  transform: translateY(0) scale(0.99); /* Pression */
+}
+
+/* ============================= */
+/* Responsive mobile             */
+/* ============================= */
+@media (max-width: 520px) { /* Petits écrans */
+  :root { /* Ajustements */
+    --card-radius: 22px; /* Arrondi plus petit */
+    --poem-side-gap: 10px; /* Fenêtre plus large sur mobile */
+  }
+
+  .arc-title__text { /* Joyeux Noël */
+    font-size: 92px; /* Un peu réduit */
+    stroke-width: 5px; /* Contour plus fin */
+  }
+
+  .poem__title { /* Titre */
+    font-size: 36px; /* Plus petit sur mobile */
+  }
+
+  .poem { /* Fenêtre */
+    max-height: 62vh; /* Moins haut sur mobile */
+  }
+}

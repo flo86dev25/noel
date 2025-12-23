@@ -1,0 +1,61 @@
+<!doctype html> <!-- Déclare un document HTML5 -->
+<html lang="fr"> <!-- Définit la langue du document : français -->
+<head> <!-- Début des informations non visibles (métadonnées) -->
+  <meta charset="utf-8" /> <!-- Encodage UTF-8 : accents OK -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- Responsive : adapté smartphone -->
+  <title>Poème</title> <!-- Titre affiché dans l’onglet -->
+  <link rel="stylesheet" href="styles.css" /> <!-- Lien vers le CSS commun -->
+</head> <!-- Fin du head -->
+
+<body> <!-- Début du contenu visible -->
+
+  <main class="page"> <!-- Conteneur principal plein écran -->
+
+    <section class="card card--poem" aria-label="Poème pour Céline"> <!-- Carte avec la 2e image en fond -->
+
+      <div class="poem-stack" aria-label="Poème et bouton retour"> <!-- Conteneur qui centre et empile poème + bouton -->
+
+        <article class="poem" aria-label="Texte du poème"> <!-- Fenêtre du poème (transparente via CSS) -->
+          <h1 class="poem__title">À Céline, dans la lumière des jours</h1> <!-- Titre (romantique + dégradé via CSS) -->
+
+          <!-- IMPORTANT : on enlève les lignes vides au début du <pre> pour un rendu propre sur mobile -->
+          <pre class="poem__text">Dans le souffle du matin où les oiseaux s’éveillent,
+Ton nom, Céline, résonne comme une douce merveille.
+Le vent lui-même semble écouter ton pas,
+Et chaque battement d’aile murmure : la voilà.
+
+Sous le ciel qui s’ouvre comme un livre en été,
+Je vois ton sourire tout doucement s’y déposer.
+Il éclaire les heures, apaise les nuits,
+Et fait naître en mon cœur un printemps infini.
+
+Les chats qui s’étirent au bord des fenêtres
+T’observent passer comme une reine discrète.
+Ils savent, eux aussi, le secret de ta grâce :
+Ton regard qui rassure, ta douceur qui embrasse.
+
+Dans les arbres, les feuilles glissent des mots légers,
+Des confidences d’amour que je n’ose te dire qu’à moitié.
+Elles racontent combien je t’admire, chaque jour,
+Combien tu es mon refuge, mon horizon, mon parcours.
+
+Et quand la lune veille au-dessus de notre monde,
+Je mesure la chance, profonde, qui m’inonde :
+Partager mes heures avec toi, ma lumière,
+Toi qui donnes un sens à tout l’univers.
+
+Alors je t’écris ces quelques lignes,
+Pour que jamais ne s’efface, Céline,
+La vérité simple que la nature me rappelle :
+Je t’aime… aussi sûrement que l’aube éveille le ciel.</pre> <!-- pre : conserve retours à la ligne -->
+        </article> <!-- Fin de la fenêtre poème -->
+
+        <a class="back-link" href="index.html" aria-label="Retour à la page Joyeux Noël">← Retour</a> <!-- Bouton retour sous le poème -->
+      </div> <!-- Fin du conteneur poem-stack -->
+
+    </section> <!-- Fin de la carte -->
+
+  </main> <!-- Fin du main -->
+
+</body> <!-- Fin du body -->
+</html> <!-- Fin du document -->
